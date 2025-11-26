@@ -1,5 +1,4 @@
 pyrogram==2.0.106
-tgcrypto==1.2.5
-aiohttp==3.10.5
-uvicorn==0.30.6
+tgcrypto
 fastapi==0.115.0
+uvicorn[standard]==0.30.6
