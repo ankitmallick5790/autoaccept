@@ -92,5 +92,27 @@ async def trigger_processing_get():
     result = await process_join_requests()
     return result
 
+@app.get("/debug")
+async def debug():
+    """Debug: Test connection + channel access"""
+    if not client:
+        return {"error": "Client not ready"}
+    
+    try:
+        # Test channel access
+        chat = await client.get_chat(CHANNEL_ID)
+        return {
+            "status": "connected",
+            "channel": {
+                "id": chat.id,
+                "title": chat.title,
+                "type": chat.type,
+                "pending_requests": getattr(chat, 'pending_join_requests', 'unknown')
+            }
+        }
+    except Exception as e:
+        return {"error": str(e), "channel_id_used": CHANNEL_ID}
+
+
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT", 8000)))
