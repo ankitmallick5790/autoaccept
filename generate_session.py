@@ -1,4 +1,9 @@
 import asyncio
+import sys
+
+if sys.version_info >= (3, 14):
+    asyncio.set_event_loop_policy(asyncio.DefaultEventLoopPolicy())
+
 from pyrogram import Client
 
 API_ID = 24286461  # Your API ID from my.telegram.org
